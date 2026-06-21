@@ -1,10 +1,19 @@
 # Mac Mini — Phase 1: Manual Steps
 
+> ⚠️ **DISTRIBUTION OVERRIDE IN EFFECT.** This is the original Mac-Mini flow where each
+> person signs up for everything. In this browser-workspace distribution that is NOT how
+> it works — read `~/.claude/rules/il-distribution-overrides.md` and follow it over this
+> file. In short: **Supabase, Vercel, Resend, and Gemini are operator-provisioned — if
+> their keys are already in `website/.env.local`, skip those signups entirely. Google
+> Workspace and Lark are OPTIONAL. Steps 7–8 (Homebrew / git / Desktop install) are SKIPPED
+> — the workspace already has the toolchain.** Only ask the client for: domain, business
+> info, and (if `ANTHROPIC_API_KEY` is unset) one Claude sign-in.
+
 All steps are performed by the operator in a browser or terminal. Claude narrates; human acts.
 
 ---
 
-## 1 — Google Workspace: Add client domain
+## 1 — Google Workspace: Add client domain  ·  **[OPTIONAL — branded inbox only; outbound email uses Resend. Skip unless the client wants to receive mail at their own domain.]**
 
 1. `gmail.com` → log in as `infinite-8.com` master account → grid icon → **Admin Console**
 2. **Domains** → **Manage Domains** → **Add a domain** → **Add as a secondary domain**
@@ -24,7 +33,7 @@ All steps are performed by the operator in a browser or terminal. Claude narrate
 2. Email: `{firstname}@{clientdomain}.com` | set temporary password
 3. **Log in once** as operator email → set permanent password
 
-## 4 — Create service accounts (all under operator email)
+## 4 — Create service accounts (all under operator email)  ·  **[OPERATOR-PROVISIONED — skip any whose key is already in `website/.env.local`. The provisioner already created Supabase + Vercel and injected keys. Do NOT send the client to sign up.]**
 
 **GitHub**: `github.com` → Sign up → Username: `{clientslug}` → verify email
 
@@ -34,7 +43,7 @@ All steps are performed by the operator in a browser or terminal. Claude narrate
 
 **Supabase**: `supabase.com` → Sign up → create project: name=`{project-slug}`, region=closest to client users → **save database password**
 
-## 5 — Generate API keys
+## 5 — Generate API keys  ·  **[OPERATOR-PROVISIONED — Resend + Gemini keys are shared and already in `website/.env.local`. Skip. Lark is OPTIONAL.]**
 
 **Gemini**:
 1. `aistudio.google.com` → log in with operator Google account
@@ -85,7 +94,7 @@ SUPABASE_SERVICE_ROLE_KEY=
 {project-slug}-agents
 ```
 
-## 7 — Install Claude Code Desktop on Mac Mini
+## 7 — Install Claude Code Desktop on Mac Mini  ·  **[SKIP in browser workspace — Claude Code is already installed and running here.]**
 
 Go to `claude.ai/download` in Chrome → download the Mac app → drag it to `/Applications` → open it → sign in with the operator Claude Pro account.
 
@@ -93,7 +102,7 @@ Once you see the Claude Code interface, leave it open — you'll use it to run P
 
 ---
 
-## 8 — Install Homebrew and git on Mac Mini
+## 8 — Install Homebrew and git on Mac Mini  ·  **[SKIP in browser workspace — git, node, and the full toolchain are already installed in the image.]**
 
 **On the Mac Mini**: press `Cmd + Space`, type `Terminal`, press Enter. A black window with a prompt appears — that's the terminal.
 
