@@ -5,6 +5,34 @@ Phase 1 prerequisites.** Those skills are the original Mac-Mini flow where each 
 signs up for everything themselves. In THIS distribution that is not how it works — so
 when running the IL flow, follow the rules below over anything in `phase1-manual.md`.
 
+## RULE 0 — ACCOUNT IDENTITY IS ABSOLUTE (do this FIRST, every run)
+
+Everything is built under **the CLIENT's own accounts only.** The operator's personal
+or paid accounts, and ANY account that happens to already be signed in, are **NEVER** to
+be used. Before scaffolding, pushing to GitHub, or creating a database — before creating
+*anything* — run this pre-flight and HARD STOP:
+
+1. Print exactly who is authenticated:
+   - GitHub:  `gh auth status` and `gh api user --jq .login`
+   - Supabase: list organizations **and their plan** via the Supabase MCP
+2. STOP and make the operator confirm in words:
+   > "I'm about to build under GitHub = `<login>` and Supabase org = `<name>` (`<plan>`).
+   >  Confirm this is the CLIENT's own account before I create anything."
+3. **REFUSE to proceed** — do not scaffold, push, or create a DB — if ANY of these hold:
+   - the connected account is not the client's own clean account, **or**
+   - the Supabase org is a pre-existing / **paid (Pro)** org instead of a fresh Free org
+     created for THIS client, **or**
+   - you are not certain.
+   Instead, instruct re-authentication as the client (`gh auth login`; reconnect the
+   Supabase connector as the client) and then re-run this pre-flight from step 1.
+4. **A price quote means the WRONG account is connected.** If creating a resource would
+   cost money (e.g. Supabase quotes $10/mo because the org is Pro), that is proof you are
+   on the wrong account. **STOP and switch accounts. Never offer to pay, and never create
+   a paid resource to work around it.**
+
+This rule overrides everything else. When in doubt, stop and ask — never silently build
+under whatever account happens to be connected.
+
 ## The model
 - The **operator** owns the paid accounts (Supabase, Vercel, Resend, Gemini) and runs
   `operator/provision-client.ts` to create each client's stack and inject the keys into
