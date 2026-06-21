@@ -1,0 +1,21 @@
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+operator/.env
+**/.env*.local
+
+# Claude Code local settings (machine/user-specific, may hold tokens)
+.claude/settings.local.json
+
+# Node / build
+node_modules/
+.next/
+dist/
+*.log
+
+# OS
+.DS_Store
+
+# Operator ledger may reference client refs — keep local unless you want it shared
+operator/clients.json

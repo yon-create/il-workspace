@@ -1,0 +1,20 @@
+{
+  "name": "Infinite Leverage Workspace",
+  "build": { "dockerfile": "Dockerfile", "context": ".." },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": { "installZsh": true, "configureZshAsDefaultShell": true }
+  },
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "Website preview", "onAutoForward": "openBrowser" }
+  },
+  "onCreateCommand": "il-start --provision",
+  "customizations": {
+    "vscode": {
+      "extensions": ["anthropic.claude-code"],
+      "settings": { "terminal.integrated.defaultProfile.linux": "zsh" }
+    }
+  },
+  "remoteUser": "node"
+}
