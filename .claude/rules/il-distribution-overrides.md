@@ -30,6 +30,26 @@ can wrongly carry a leftover/pre-existing account. Therefore:
 
 This rule overrides everything else.
 
+## RULE 1 — GITHUB IS THE MASTER KEY (the connection workflow)
+
+The client has exactly TWO accounts: their **GitHub** (the one that opened this Codespace)
+and their **Claude** account. They will NOT create standalone email/password accounts for
+anything. Every external service is created/authorized by **"Continue with GitHub" using
+that same GitHub account.** One identity → everything.
+
+When the flow needs to connect a service, walk the client through GitHub SSO:
+
+| Service | How to connect | Notes |
+|---|---|---|
+| **Vercel** | At vercel.com → **"Continue with GitHub"** → authorize | Creates their Vercel tied to their GitHub. Import the repo, deploy. |
+| **Supabase** | Connector → **"Continue with GitHub"** (same account) | Their own free org. Create the DB there. Never a pre-existing/paid org (see RULE 0). |
+| **Resend** | At resend.com/signup → **"Continue with GitHub"** | Verified: Resend supports GitHub sign-in. Then add domain + API key. |
+| **Gemini** | ⚠️ Google AI Studio needs a **Google** account, NOT GitHub | The client has no Google account, so this breaks the chain. **Operator supplies a shared `GEMINI_API_KEY`, or defer image generation.** Do not ask the client to make a Google account. |
+| any other ("etc.") | Prefer **"Continue with GitHub"** wherever offered | If a service has no GitHub SSO, that's the one place a separate signup is needed — flag it to the operator rather than silently creating credentials. |
+
+Always pick the GitHub option on the sign-in screen — never email/password — so every
+account stays under the client's single GitHub identity.
+
 ## The model
 - The **operator** owns the paid accounts (Supabase, Vercel, Resend, Gemini) and runs
   `operator/provision-client.ts` to create each client's stack and inject the keys into
