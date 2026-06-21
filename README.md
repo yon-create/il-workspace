@@ -10,9 +10,9 @@ the cloud, not on your machine.
 ## Start here (pick the one that fits you)
 
 ### 1. Cloud workspace — recommended for laptops/desktops
-Click this button (replace `OWNER` with the GitHub account that holds this repo):
+Click this link:
 
-> **▶ Open in a cloud workspace:** `https://codespaces.new/OWNER/il-workspace?quickstart=1`
+> **▶ Open in a cloud workspace:** `https://codespaces.new/yon-create/il-workspace?quickstart=1`
 
 It opens a full workspace in your browser with everything already installed. When it
 finishes loading, click **▶ Start Infinite Leverage** in the task menu (Terminal → Run Task),
