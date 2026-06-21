@@ -12,12 +12,21 @@
   "onCreateCommand": "il-start --provision",
   "customizations": {
     "vscode": {
-      "extensions": ["anthropic.claude-code"],
+      "extensions": [
+        "anthropic.claude-code",
+        "-github.copilot",
+        "-github.copilot-chat"
+      ],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh",
+        "terminal.integrated.defaultLocation": "editor",
         "task.allowAutomaticTasks": "on",
         "workbench.startupEditor": "none",
-        "claudeCode.preferredLocation": "sidebar"
+        "chat.disableAIFeatures": true,
+        "chat.commandCenter.enabled": false,
+        "claudeCode.preferredLocation": "sidebar",
+        "claudeCode.useTerminal": false,
+        "claudeCode.hideOnboarding": true
       }
     }
   },
