@@ -63,6 +63,19 @@ pre-baked so any non-technical user can run IL from a browser.
    (`operator/provision-client.ts`) — it creates their Supabase + Vercel + email from
    your master accounts and injects the secrets, so the client registers for nothing
    but their own domain.
+4. **(Recommended) Pre-sign-in to Claude so users land already authenticated.**
+   On a machine where browser login works, run `claude setup-token` to mint a
+   `CLAUDE_CODE_OAUTH_TOKEN`. Add it as a **Codespaces secret** on this repo
+   (GitHub → repo Settings → Secrets and variables → Codespaces → New secret,
+   name `CLAUDE_CODE_OAUTH_TOKEN`). Every workspace then opens with the terminal
+   `claude` already signed in — the user clicks nothing.
+
+**The front door is the terminal, not a tab.** The workspace auto-opens a terminal
+running `il-start` → the `claude` CLI. That is the reliable single entry point — it does
+NOT depend on the Claude Code Activity-Bar icon (which has a known habit of hiding itself
+after a rebuild). If a user ever wants the GUI panel, it's reachable from the bottom
+**Status Bar (`✱ Claude Code`)** or **Command Palette → "Claude Code: Open in Side Bar"**.
 
 **Security:** no secrets are baked into this image. All authentication is in-browser
-OAuth at first use, or injected per-client by the operator. Never commit `operator/.env`.
+OAuth at first use, or injected per-client by the operator (Codespaces secrets / the
+provisioner). Never commit `operator/.env`.
