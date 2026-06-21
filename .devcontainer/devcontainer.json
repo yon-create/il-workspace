@@ -13,7 +13,13 @@
   "customizations": {
     "vscode": {
       "extensions": ["anthropic.claude-code"],
-      "settings": { "terminal.integrated.defaultProfile.linux": "zsh" }
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "task.allowAutomaticTasks": "on",
+        "workbench.startupEditor": "none",
+        "chat.commandCenter.enabled": false,
+        "github.copilot.enable": { "*": false }
+      }
     }
   },
   "remoteUser": "node"

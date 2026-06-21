@@ -11,7 +11,7 @@
         "focus": true,
         "clear": true
       },
-      "runOptions": { "runOn": "default" },
+      "runOptions": { "runOn": "folderOpen" },
       "problemMatcher": [],
       "detail": "Launch Claude Code and begin the Infinite Leverage setup. You don't type anything."
     }
