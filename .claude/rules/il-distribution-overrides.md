@@ -44,11 +44,17 @@ When the flow needs to connect a service, walk the client through GitHub SSO:
 | **Vercel** | At vercel.com → **"Continue with GitHub"** → authorize | Creates their Vercel tied to their GitHub. Import the repo, deploy. |
 | **Supabase** | Connector → **"Continue with GitHub"** (same account) | Their own free org. Create the DB there. Never a pre-existing/paid org (see RULE 0). |
 | **Resend** | At resend.com/signup → **"Continue with GitHub"** | Verified: Resend supports GitHub sign-in. Then add domain + API key. |
-| **Gemini** | ⚠️ Google AI Studio needs a **Google** account, NOT GitHub | The client has no Google account, so this breaks the chain. **Operator supplies a shared `GEMINI_API_KEY`, or defer image generation.** Do not ask the client to make a Google account. |
+| **Gemini** (optional) | Offer a choice — never block | Powers AI image generation only. Ask the client: *"Want AI image generation? You can paste a Gemini API key now, or skip it and add it anytime later."* If **yes** → they create a free key at aistudio.google.com (this one does need a Google login) and paste it; save as `GEMINI_API_KEY`. If **no / later** → continue immediately; image generation stays off until a key is added. |
 | any other ("etc.") | Prefer **"Continue with GitHub"** wherever offered | If a service has no GitHub SSO, that's the one place a separate signup is needed — flag it to the operator rather than silently creating credentials. |
 
 Always pick the GitHub option on the sign-in screen — never email/password — so every
 account stays under the client's single GitHub identity.
+
+**Gemini is fully optional and non-blocking.** Never make the client create a Google
+account, and never hold up the site/build/launch waiting on it. If `GEMINI_API_KEY` is
+absent, the Designer agent and the weekly image step skip gracefully and note "image
+generation pending a Gemini key" — they must not error. To add it later, the client just
+pastes a key into `website/.env.local` (and Vercel env) and the Designer activates.
 
 ## The model
 - The **operator** owns the paid accounts (Supabase, Vercel, Resend, Gemini) and runs
